@@ -1,39 +1,31 @@
 class Node {
-  constructor(value, next = null) {
+  constructor(value, prev = null, next = null) {
     this.value = value;
+    this.prev = prev;
     this.next = next;
-  }
-
-  toString(callback) {
-    return callback ? callback(this.value) : `${this.value}`;
   }
 }
 
-class LinkedList {
+class DoubleLinkedList {
   constructor() {
     this.head = null;
     this.tail = null;
   }
 
   prepend(value) {
-    const newNode = new Node(value, this.head);
-
-    if (!this.tail) this.tail = newNode;
-    
+    const newNode = new Node(value, null, this.head);
+    this.head.prev = newNode;
     this.head = newNode;
+
+    if(!this.tail) this.tail = newNode;
 
     return this;
   }
 
   append(value) {
-    const newNode = new Node(value);
+    const newNode = new Node(value, this.tail);
 
-    if (!this.head) {
-      this.head = newNode;
-      this.tail = newNode;
-      
-      return this;
-    }
+    if(!this.head) this.head = newNode;
 
     this.tail.next = newNode;
     this.tail = newNode;
@@ -71,26 +63,24 @@ class LinkedList {
   }
 
   find(value) {
+    if (!this.head) return null;
+
     let currentNode = this.head;
-    while(currentNode.next) {
+    while (currentNode.next) {
       if (currentNode.value === value) return currentNode;
       currentNode = currentNode.next;
     }
     return null;
   }
 
-  deleteTail(){
-    this.tail = null;
+  reverseFind(value) {
+    if (!this.tail) return null;
 
-    let currentNode = this.head;
-    while(currentNode.next) {
-      currentNode = currentNode.next;
+    let currentNode = this.tail;
+    while (currentNode.prev) {
+      if (currentNode.value === value) return currentNode;
+      currentNode = currentNode.prev;
     }
-
-    this.tail = currentNode;
-  }
-
-  deleteHead() {
-    this.head = this.head.next;
+    return null;
   }
 }
