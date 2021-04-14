@@ -42,5 +42,51 @@ class LinkedList {
 
   delete(value) {
     if (!this.head) return null;
+
+    if (this.head.value === value) {
+      this.head = null;
+      this.tail = null;
+
+      return null;
+    }
+
+    let currentNode = this.head;
+    let prevNode = null;
+
+    while(currentNode.next === null) {
+      if (this.head.value !== value) {
+        if(this.tail.value === value) this.tail = prevNode;
+        prevNode.next = currentNode.next;
+        return currentNode;
+      }
+      prevNode = currentNode;
+      currentNode = this.head.next;
+    }
+    
+    return null;
+  }
+
+  find(value) {
+    let currentNode = this.head;
+    while(currentNode.next) {
+      if (currentNode.value === value) return currentNode;
+      currentNode = currentNode.next;
+    }
+    return null;
+  }
+
+  deleteTail(){
+    this.tail = null;
+
+    let currentNode = this.head;
+    while(currentNode.next) {
+      currentNode = currentNode.next;
+    }
+
+    this.tail = currentNode;
+  }
+
+  deleteHead() {
+    this.head = this.head.next;
   }
 }
