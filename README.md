@@ -2,7 +2,8 @@
 자바스크립트 기본기를 다시 정리하기 위한 코드를 개인적으로 모아놓은 저장소입니다.
 
 ### Data Structure
-- [ ] Linked List
+- [x] Linked List
+- [x] Double Linked List
 - [ ] Tree
   - [ ] Binary Tree
   - [ ] AVL Tree
